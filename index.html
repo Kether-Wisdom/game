@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一个游戏</title>
+    <style>
+        body{background-image: url("图片/背景【备用2】.jpeg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment:fixed;
+            background-size: cover;}
+        .word{font-size: 15px;word-break:break-all;}
+        #starb{background-color: rgb(122, 131, 255);color: ivory;
+            font-size: 25px;width: 45%;text-align: center;margin: auto;
+            border:rgb(216, 65, 6) 5px solid;border-radius: 50px;}
+        .startbutton{background-color: lightsalmon;color: ivory;
+            font-size: 25px;width: 45%;text-align: center;margin: auto;
+            border:steelblue 5px solid;border-radius: 50px;}
+        .gamearea{width: 360px;height: 640px;
+            background-color: #212121;overflow: hidden;
+            border: navajowhite 10px solid;
+            text-align: center;margin: auto;margin-top: 25px;margin-bottom: 25px;}
+        #startimg{margin-left: -14%;z-index: -100;margin-top: -50px;
+            text-align: center;zoom:0.7;}
+        .but{font-size: 30px;text-align: center;
+            color: rgb(255, 255, 255);
+            background-color: rgb(220, 133, 20);
+            float: right;z-index: 10;
+            margin: 20px;position: relative;
+            border-radius: 100px;width: 40px;
+            }
+        #wtop{background-color: rgba(255, 255, 240, 0.61);
+            margin: 15px;margin-right: 0px;margin-bottom: -100px;
+            padding:10px;text-align: left;
+            border-radius: 20px;width: 240px;
+            float: left;position: relative;z-index: 100;
+            display: none;color: rgb(255, 255, 255);
+            }
+        #int:hover+#wtop{display: block;}
+        #starb{margin-top: 50px;margin-bottom: 50px;}
+        #levelbutton{display: none;}
+        #starb:hover{background-color: coral;}
+        #starb:active{background-color: crimson;}
+        .startbutton:hover{background-color: tomato;zoom: 1.3;}
+        .startbutton:active{background-color: skyblue;}
+        #tableeasy{background-color: burlywood;
+            outline: cornflowerblue 7px double;border-collapse: collapse;
+            margin: auto;margin-top: 150px;}
+        .colorblock{width: 40px;height: 40px;}
+        #stopword{width: 320px;text-align: center;margin: auto;margin-top: 100px;padding: 5px;
+            background-color: rgba(255, 248, 220, 0.623);border: rgb(104, 186, 241) 5px solid;}
+        .stopbutton{background-color: rgb(141, 0, 0);color: ivory;
+            font-size: 25px;width: 45%;text-align: center;margin: auto;
+            border:rgb(104, 186, 241) 5px solid;border-radius: 50px;margin-top: 200px;}
+        .stopbutton:hover{background-color: rgb(0, 114, 47);}
+        .colorblock:hover{outline:lightsalmon 5px solid;}
+    </style>
+</head>
+
+<body>
+    <div id="start" class="gamearea">
+        <div class="but" id="int">?</div>
+        <div class="word" id="wtop">
+            玩法介绍：【普通模式】&nbsp&nbsp<br>
+            <b>点击方块</b>以改变其自身及周围四个方块的颜色。请以实现颜色的统一为目的，挑战更快的完成时间吧!
+        </div>
+        <img id="startimg" src="图片/旋转背景.gif" >
+        <p id="starb" onclick="start()">开始游戏</p>
+        <div id="levelbutton">
+            <p class="startbutton" id="starb0" onclick="easy()">简单</p>
+            <br>
+            <p class="startbutton" id="starb1" onclick="nomal()">普通</p>
+            <br>
+            <p class="startbutton" id="starb2" onclick="hard()">困难</p>
+        </div>
+    </div>
+
+    <div id="pausediv" class="gamearea" style="display: none;">
+        <div class="but" id="pause"><img src="图片/继续键.png" style="zoom:0.06;margin-bottom: -50px;" onclick="backbut()"></div>
+        <div class="word" id="stopword" >
+            <br>
+            玩法介绍：【普通模式】&nbsp&nbsp<br>
+            <b>点击方块</b>以改变其自身及周围四个方块的颜色。请以实现颜色的统一为目的<br>
+            挑战更快的完成时间吧!
+            <br><br>
+            <b>Tips:遇到困难了？不要放弃，多尝试几次吧。</b>
+            <br><br>
+        </div>
+        <p class="stopbutton" id="Home" onclick="home()">回到首页</p>
+    </div>
+
+    <div id="easymod" class="gamearea" style="display: none;">
+        <div class="but" id="pause"><img src="图片/暂停键.png" style="zoom:0.06;margin-bottom: -50px;" onclick="stopbut()"></div>
+        <div class="but" id="pause" style="margin-right: -10px;"><img src="图片/刷新键.png" style="zoom:0.06;margin-bottom: -50px;" onclick="rebut()"></div>
+        <div class="but" id="pause" style="margin-right: -10px;"><img src="图片/主页键.png" style="zoom:0.06;margin-bottom: -50px;" onclick="home()"></div>
+        <table id="tableeasy" >
+            <tr>
+                <td class="colorblock" id="(1,1)" name="easyblock"></td>
+                <td class="colorblock" id="(1,2)" name="easyblock"></td>
+                <td class="colorblock" id="(1,3)" name="easyblock"></td>
+            </tr>
+            <tr>
+                <td class="colorblock" id="(2,1)" name="easyblock"></td>
+                <td class="colorblock" id="(2,2)" name="easyblock"></td>
+                <td class="colorblock" id="(2,3)" name="easyblock"></td>
+            </tr>
+            <tr>
+                <td class="colorblock" id="(3,1)" name="easyblock"></td>
+                <td class="colorblock" id="(3,2)" name="easyblock"></td>
+                <td class="colorblock" id="(3,3)" name="easyblock"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="nomalmod" class="gamearea" style="display: none;">
+        <!--<div class="but" id="pause"><img src="图片/暂停键.png" style="zoom:0.06;margin-bottom: -50px;" onclick="stopbut()"></div>-->
+        <!--<div class="but" id="pause" style="margin-right: -10px;"><img src="图片/刷新键.png" style="zoom:0.06;margin-bottom: -50px;" onclick="rebut()"></div>-->
+        
+        <img src="图片/施工中.png" style="zoom: 0.5;margin: auto;text-align: center;margin-top: 50%;">
+        <p class="stopbutton" id="Home" onclick="home()" style="margin-top: 100px;">回到首页</p>
+    </div>
+
+    <div id="hardmod" class="gamearea" style="display: none;">
+        <!--<div class="but" id="pause"><img src="图片/暂停键.png" style="zoom:0.06;margin-bottom: -50px;" onclick="stopbut()"></div>-->
+        <!--<div class="but" id="pause" style="margin-right: -10px;"><img src="图片/刷新键.png" style="zoom:0.06;margin-bottom: -50px;" onclick="rebut()"></div>-->
+        
+        <img src="图片/施工中.png">
+        <p class="stopbutton" id="Home" onclick="home()">回到首页</p>
+    </div>
+</body>
+<script>
+    var levelbutton=document.getElementById("levelbutton");
+    var starb=document.getElementById("starb");
+    var startdiv=document.getElementById("start");
+    var easymod=document.getElementById("easymod");
+    var pausediv=document.getElementById("pausediv");
+    var colorblock=document.getElementsByClassName("colorblock");
+    var blockpositioneasy=new Array("(1,1)","(1,2)","(1,3)","(2,1)","(2,2)","(2,3)","(3,1)","(3,2)","(3,3)");
+    var con1=new Array(0,1,4,7,8);
+    var con2=new Array(2,5);
+    var con3=new Array(3,6);
+    var con=new Array(con1,con2,con3);
+    var Numaddt1=new Array(-1,1,-3,3);
+    var Numaddt2=new Array(-1,-3,3);
+    var Numaddt3=new Array(1,-3,3);
+    var Numaddt = new Array(Numaddt1,Numaddt2,Numaddt3);
+
+    function start(){
+        starb.style.display='none';
+        levelbutton.style.display='block';
+    };
+    function stopbut(){
+        easymod.style.display='none';
+        pausediv.style.display='block';
+    };
+    function backbut(){
+        easymod.style.display='block';
+        pausediv.style.display='none';
+    };
+    function home(){
+        window.location.reload();
+    };
+    var blockcolor = new Array("255","0");
+    function rebut(){
+        for(i=0;i<colorblock.length;i++){
+            var Num = Math.floor((Math.random() * 2));
+            var randomColor='rgb('+blockcolor[Num]+','+blockcolor[Num]+','+blockcolor[Num]+')';
+            colorblock[i].style.backgroundColor=randomColor;
+            };
+    };
+    function easy(){
+        startdiv.style.display='none';
+        easymod.style.display='block';
+        for(i=0;i<colorblock.length;i++){
+            var Num = Math.floor((Math.random() * 2));
+            var randomColor='rgb('+blockcolor[Num]+','+blockcolor[Num]+','+blockcolor[Num]+')';
+            colorblock[i].style.backgroundColor=randomColor;
+            };
+        for(x=0;x<colorblock.length;x++){
+            colorblock[x].addEventListener("click", function(){
+                var y=this.id;
+                var z=blockpositioneasy.indexOf(y);
+                if(this.style.backgroundColor=='rgb(255, 255, 255)'){
+                    this.style.backgroundColor='rgb(0,0,0)';
+                }else{
+                this.style.backgroundColor='rgb(255, 255, 255)';
+                    };
+                for(c=0;c<con.length;c++){
+                    var Numtype=con[c];
+                    if(Numtype.includes(z)){
+                        var m=Numaddt[c];
+                        for(n=0;n<m.length;n++){
+                            var addnum=m[n];
+                            if(colorblock[z+addnum] == undefined){
+                                continue;}
+                            if(colorblock[z+addnum].style.backgroundColor=='rgb(255, 255, 255)'){
+                            colorblock[z+addnum].style.backgroundColor='rgb(0,0,0)';
+                            }else{
+                            colorblock[z+addnum].style.backgroundColor='rgb(255, 255, 255)';
+                            };                        
+                        }
+                    };     
+                };
+                for(k=0;k<blockcolor.length;k++){
+                    for(j=0;j<colorblock.length+1;j++){
+                        if(j==colorblock.length){
+                            var flag = confirm("you win!play it once more?");
+                            if(flag==false){
+                                window.location.reload();
+                            }else{
+                                for(i=0;i<colorblock.length;i++){
+                                    var Num = Math.floor((Math.random() * 2));
+                                    var randomColor='rgb('+blockcolor[Num]+','+blockcolor[Num]+','+blockcolor[Num]+')';
+                                    colorblock[i].style.backgroundColor=randomColor;    
+                                };
+                                break;
+                            };
+                        };
+                        if(colorblock[j].style.backgroundColor=='rgb('+blockcolor[k]+', '+blockcolor[k]+', '+blockcolor[k]+')'){
+                            continue;
+                        }else{break};
+                    };
+                }                  
+            }); 
+        }    
+    }
+    function nomal(){
+        startdiv.style.display='none';
+        nomalmod.style.display='block';}
+    function hard(){
+        startdiv.style.display='none';
+        hardmod.style.display='block';
+    }
+           
+</script>
+</html>
